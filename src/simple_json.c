@@ -67,7 +67,9 @@ SJson *sj_load(const char *filename)
     SJson *json;
     long size,read;
     char *buffer = NULL;
-    file = fopen(filename,"r");
+
+    //  On Windows, there can be a file size difference due to fopen in text mode filtering /r characters.
+    file = fopen(filename,"rb");
     if (!file)
     {
         sj_set_error("sj_load: failed to open file %s",filename);
